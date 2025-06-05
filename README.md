@@ -21,7 +21,7 @@ A simple and modern Pokédex web app built with Node.js, Express, EJS, and Tailw
 
 1. **Clone the repository:**
    ```sh
-   git clone https://github.com/your-username/pokedex-express.git
+   git clone git@github.com:ranielART/pokedex-express.git
    cd pokedex-express
    ```
 
