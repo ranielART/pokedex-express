@@ -1,14 +1,18 @@
-const express = require("express");
-const axios = require("axios");
-const path = require("path");
+import express from "express";
+import axios from "axios";
+import path from "path";
+import { fileURLToPath } from "url";
+import pokemonRoutes from "../routes/pokemon.js";
+
+// __dirname workaround for ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const port = 3000;
-const pokemonRoutes = require("../routes/pokemon");
 
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "../public")));
-
 
 app.use("/", pokemonRoutes);
 

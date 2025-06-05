@@ -1,9 +1,12 @@
-const express = require("express");
-const axios = require("axios");
+import express from "express";
+import axios from "axios";
+import dotenv from "dotenv";
+
+dotenv.config();
+
+const API_URL = process.env.API_URL;
 
 const router = express.Router();
-const API_URL = "https://pokeapi.co/api/v2/pokemon?limit=50";
-
 
 router.get("/", async (req, res) => {
   try {
@@ -14,28 +17,30 @@ router.get("/", async (req, res) => {
   }
 });
 
-
 router.get("/search", async (req, res) => {
   try {
     const { name } = req.query;
     if (!name) return res.redirect("/");
 
-    const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name.toLowerCase()}`);
+    const response = await axios.get(
+      `https://pokeapi.co/api/v2/pokemon/${name.toLowerCase()}`
+    );
     res.render("pages/details", { pokemon: response.data });
   } catch (error) {
     res.status(404).send("Pokémon not found");
   }
 });
 
-
 router.get("/pokemon/:name", async (req, res) => {
   try {
     const { name } = req.params;
-    const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`);
+    const response = await axios.get(
+      `https://pokeapi.co/api/v2/pokemon/${name}`
+    );
     res.render("pages/details", { pokemon: response.data });
   } catch (error) {
     res.status(500).send("Pokémon not found");
   }
 });
 
-module.exports = router;
+export default router;
