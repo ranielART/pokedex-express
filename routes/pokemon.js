@@ -41,4 +41,6 @@ router.get("/pokemon/:id", async (req, res) => {
   }
 });
 
+
+
 export default router;
