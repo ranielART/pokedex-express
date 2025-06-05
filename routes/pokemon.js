@@ -10,7 +10,7 @@ const router = express.Router();
 
 router.get("/", async (req, res) => {
   try {
-    const response = await axios.get(API_URL);
+    const response = await axios.get(`${API_URL}`);
     res.render("pages/home", { pokemonList: response.data.results });
   } catch (error) {
     res.status(500).send("Error fetching Pokémon data");
@@ -27,19 +27,17 @@ router.get("/search", async (req, res) => {
     );
     res.render("pages/details", { pokemon: response.data });
   } catch (error) {
-    res.status(404).send("Pokémon not found");
+    res.status(404).render("pages/notfound");
   }
-});
+}); 
 
-router.get("/pokemon/:name", async (req, res) => {
+router.get("/pokemon/:id", async (req, res) => {
   try {
-    const { name } = req.params;
-    const response = await axios.get(
-      `https://pokeapi.co/api/v2/pokemon/${name}`
-    );
+    const { id } = req.params;
+    const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`);
     res.render("pages/details", { pokemon: response.data });
   } catch (error) {
-    res.status(500).send("Pokémon not found");
+    res.status(404).render("pages/notfound");
   }
 });
 
